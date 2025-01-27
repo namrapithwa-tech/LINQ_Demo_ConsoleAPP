@@ -8,6 +8,7 @@ To run the code, ensure you have:
 
 - .NET SDK installed ([Download .NET SDK](https://dotnet.microsoft.com/download))
 - A code editor such as Visual Studio or Visual Studio Code
+- Create ConsoleApp named **LINQ_Demo**
 
 ## Code Overview
 
