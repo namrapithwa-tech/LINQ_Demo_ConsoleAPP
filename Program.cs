@@ -1,180 +1,184 @@
-﻿// output Start
+﻿// Student output start (Select Operations)
 
-// Demo 1
-Console.WriteLine("LINQ DEMO 1");
-var students = Student.GetStudents();
-foreach(var student in students)
-{
-    Console.WriteLine($"Roll No: {student.Rno}, Name: {student.Name}, Branch: {student.Branch}, " +
-        $"Sem: {student.sem}, CPI: {student.CPI}");
-}
-Console.WriteLine("__________________________");
-
-// Demo 2
-Console.WriteLine("LINQ DEMO 2");
-var studentList = Student.GetStudents().Select(x => new Student()
-{
-    Rno = x.Rno,
-    Name = x.Name,
-    Branch = x.Branch,
-    sem = x.sem,
-    CPI = x.CPI
-});
-foreach(var student in studentList)
-{
-    Console.WriteLine($"Roll No: {student.Rno}, Name: {student.Name}, Branch: {student.Branch}, " +
-        $"Sem: {student.sem}, CPI: {student.CPI}");
-}
-Console.WriteLine("__________________________");
-
-// Demo 3
-Console.WriteLine("LINQ DEMO 3");
-var studentList1 = Student.GetStudents()
-    .Select(x => new
+    // Demo 1
+    Console.WriteLine("LINQ DEMO 1");
+    var students = Student.GetStudents();
+    foreach(var student in students)
     {
-        NameAndRno = x.Name + "-" + x.Rno,
-        Branch = x.Branch,
-        sem = x.sem,
-        CPI = x.CPI
-    });
-foreach(var student in studentList1)
-    {
-    Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
-        $"Sem: {student.sem}, CPI: {student.CPI}");
-}
-Console.WriteLine("__________________________");
-
-// Demo 4 where clause
-Console.WriteLine("LINQ DEMO 4 Where Clause");
-var studentList2 = Student.GetStudents()
-    .Where(x => x.CPI > 7)
-    .Select(x => new
-    {
-        NameAndRno = x.Name + "-" + x.Rno,
-        Branch = x.Branch,
-        sem = x.sem,
-        CPI = x.CPI
-    });
-foreach(var student in studentList2)
-    {
-    Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
-        $"Sem: {student.sem}, CPI: {student.CPI}");
+        Console.WriteLine($"Roll No: {student.Rno}, Name: {student.Name}, Branch: {student.Branch}, " +
+            $"Sem: {student.sem}, CPI: {student.CPI}");
     }
-Console.WriteLine("__________________________");
+    Console.WriteLine("__________________________");
 
-// Demo 5 Where clause with multiple conditions
-Console.WriteLine("LINQ DEMO 5 Where Clause with multiple conditions");
-Console.WriteLine(
-    "Enter the minimum CPI: ");
-Console.WriteLine(
-    "Enter the minimum sem: ");
-var minCPI = Convert.ToDouble(Console.ReadLine());
-var minSem = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine(
-    "Enter the maximum CPI: ");
-Console.WriteLine(
-    "Enter the maximum sem: ");
-var maxCPI = Convert.ToDouble(Console.ReadLine());
-var maxSem = Convert.ToInt32(Console.ReadLine());
-var studentList3 = Student.GetStudents()
-    .Where(x => x.CPI >= minCPI && x.CPI <= maxCPI && x.sem >= minSem && x.sem <= maxSem)
-    .Select(x => new
+    // Demo 2
+    Console.WriteLine("LINQ DEMO 2");
+    var studentList = Student.GetStudents().Select(x => new Student()
     {
-        NameAndRno = x.Name + "-" + x.Rno,
+        Rno = x.Rno,
+        Name = x.Name,
         Branch = x.Branch,
         sem = x.sem,
         CPI = x.CPI
     });
-foreach(var student in studentList3)
+    foreach(var student in studentList)
     {
-    Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
-        $"Sem: {student.sem}, CPI: {student.CPI}");
+        Console.WriteLine($"Roll No: {student.Rno}, Name: {student.Name}, Branch: {student.Branch}, " +
+            $"Sem: {student.sem}, CPI: {student.CPI}");
     }
-Console.WriteLine("__________________________");
+    Console.WriteLine("__________________________");
 
-Console.WriteLine("*/*/*/*/*//*/*/*/*/*/*/*/*/*/*/*/**/*/");
+    // Demo 3
+    Console.WriteLine("LINQ DEMO 3");
+    var studentList1 = Student.GetStudents()
+        .Select(x => new
+        {
+            NameAndRno = x.Name + "-" + x.Rno,
+            Branch = x.Branch,
+            sem = x.sem,
+            CPI = x.CPI
+        });
+    foreach(var student in studentList1)
+        {
+        Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
+            $"Sem: {student.sem}, CPI: {student.CPI}");
+    }
+    Console.WriteLine("__________________________");
 
-// Employee output start
+    // Demo 4 where clause
+    Console.WriteLine("LINQ DEMO 4 Where Clause");
+    var studentList2 = Student.GetStudents()
+        .Where(x => x.CPI > 7)
+        .Select(x => new
+        {
+            NameAndRno = x.Name + "-" + x.Rno,
+            Branch = x.Branch,
+            sem = x.sem,
+            CPI = x.CPI
+        });
+    foreach(var student in studentList2)
+        {
+        Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
+            $"Sem: {student.sem}, CPI: {student.CPI}");
+        }
+    Console.WriteLine("__________________________");
 
-var employees = Employee.GetEmployees();
+    // Demo 5 Where clause with multiple conditions
+    Console.WriteLine("LINQ DEMO 5 Where Clause with multiple conditions");
+    Console.WriteLine(
+        "Enter the minimum CPI: ");
+    Console.WriteLine(
+        "Enter the minimum sem: ");
+    var minCPI = Convert.ToDouble(Console.ReadLine());
+    var minSem = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine(
+        "Enter the maximum CPI: ");
+    Console.WriteLine(
+        "Enter the maximum sem: ");
+    var maxCPI = Convert.ToDouble(Console.ReadLine());
+    var maxSem = Convert.ToInt32(Console.ReadLine());
+    var studentList3 = Student.GetStudents()
+        .Where(x => x.CPI >= minCPI && x.CPI <= maxCPI && x.sem >= minSem && x.sem <= maxSem)
+        .Select(x => new
+        {
+            NameAndRno = x.Name + "-" + x.Rno,
+            Branch = x.Branch,
+            sem = x.sem,
+            CPI = x.CPI
+        });
+    foreach(var student in studentList3)
+        {
+        Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
+            $"Sem: {student.sem}, CPI: {student.CPI}");
+        }
+    Console.WriteLine("__________________________");
 
-// 1. Select all whose age is greater than 25
-Console.WriteLine("1. Employees whose age is greater than 25:");
-var ageAbove25 = employees.Where(e => e.Age > 25);
-foreach (var emp in ageAbove25)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+// Student Output end (Select Operations)
 
-// 2. Select data of all female employees
-Console.WriteLine("2. All female employees:");
-var femaleEmployees = employees.Where(e => e.Gender == "Female");
-foreach (var emp in femaleEmployees)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+Console.WriteLine("*/*/*/*/*//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*");
 
-// 3. Select all data whose age is between 25 to 30
-Console.WriteLine("3. Employees whose age is between 25 and 30:");
-var ageBetween25And30 = employees.Where(e => e.Age >= 25 && e.Age <= 30);
-foreach (var emp in ageBetween25And30)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+// Employee output start (Diffrent types of where clause)
 
-// 4. Select all female employees whose EmpId is between 1003 to 1006
-Console.WriteLine("4. Female employees whose EmpId is between 1003 and 1006:");
-var femaleEmpIdRange = employees.Where(e => e.Gender == "Female" && e.EmpId >= 1003 && e.EmpId <= 1006);
-foreach (var emp in femaleEmpIdRange)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    var employees = Employee.GetEmployees();
 
-// 5. Select data whose name is Jensi
-Console.WriteLine("5. Employee whose name is Jensi:");
-var jensi = employees.Where(e => e.Name == "Jensi");
-foreach (var emp in jensi)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    // 1. Select all whose age is greater than 25
+    Console.WriteLine("1. Employees whose age is greater than 25:");
+    var ageAbove25 = employees.Where(e => e.Age > 25);
+    foreach (var emp in ageAbove25)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
 
-// 6. Select data of candidates whose age is 30
-Console.WriteLine("6. Employees whose age is 30:");
-var age30 = employees.Where(e => e.Age == 30);
-foreach (var emp in age30)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    // 2. Select data of all female employees
+    Console.WriteLine("2. All female employees:");
+    var femaleEmployees = employees.Where(e => e.Gender == "Female");
+    foreach (var emp in femaleEmployees)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
 
-// 7. Select data of candidates whose name starts with "J"
-Console.WriteLine("7. Employees whose name starts with 'J':");
-var nameStartsWithJ = employees.Where(e => e.Name.StartsWith("J"));
-foreach (var emp in nameStartsWithJ)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    // 3. Select all data whose age is between 25 to 30
+    Console.WriteLine("3. Employees whose age is between 25 and 30:");
+    var ageBetween25And30 = employees.Where(e => e.Age >= 25 && e.Age <= 30);
+    foreach (var emp in ageBetween25And30)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
 
-// 8. Select data of candidates who is containing 'mra' in email id
-Console.WriteLine("8. Employees whose email contains 'mra':");
-var emailContainsMra = employees.Where(e => e.Email.Contains("mra"));
-foreach (var emp in emailContainsMra)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    // 4. Select all female employees whose EmpId is between 1003 to 1006
+    Console.WriteLine("4. Female employees whose EmpId is between 1003 and 1006:");
+    var femaleEmpIdRange = employees.Where(e => e.Gender == "Female" && e.EmpId >= 1003 && e.EmpId <= 1006);
+    foreach (var emp in femaleEmpIdRange)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
 
-// 9. Select data of candidates whose name is having Namra
-Console.WriteLine("9. Employee whose name is Namra:");
-var nameIsNamra = employees.Where(e => e.Name == "Namra");
-foreach (var emp in nameIsNamra)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    // 5. Select data whose name is Jensi
+    Console.WriteLine("5. Employee whose name is Jensi:");
+    var jensi = employees.Where(e => e.Name == "Jensi");
+    foreach (var emp in jensi)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
 
-// 10. Select data of candidates whose name contains 'mi'
-Console.WriteLine("10. Employees whose name contains 'mi':");
-var nameContainsMi = employees.Where(e => e.Name.Contains("mi"));
-foreach (var emp in nameContainsMi)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
+    // 6. Select data of candidates whose age is 30
+    Console.WriteLine("6. Employees whose age is 30:");
+    var age30 = employees.Where(e => e.Age == 30);
+    foreach (var emp in age30)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
 
-// 11. Select data of candidates whose age is either 20, 25, or 27
-Console.WriteLine("11. Employees whose age is either 20, 25, or 27:");
-var specificAges = employees.Where(e => e.Age == 20 || e.Age == 25 || e.Age == 27);
-foreach (var emp in specificAges)
-    Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
-Console.WriteLine("____________");
-// Employee output end
+    // 7. Select data of candidates whose name starts with "J"
+    Console.WriteLine("7. Employees whose name starts with 'J':");
+    var nameStartsWithJ = employees.Where(e => e.Name.StartsWith("J"));
+    foreach (var emp in nameStartsWithJ)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
+
+    // 8. Select data of candidates who is containing 'mra' in email id
+    Console.WriteLine("8. Employees whose email contains 'mra':");
+    var emailContainsMra = employees.Where(e => e.Email.Contains("mra"));
+    foreach (var emp in emailContainsMra)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
+
+    // 9. Select data of candidates whose name is having Namra
+    Console.WriteLine("9. Employee whose name is Namra:");
+    var nameIsNamra = employees.Where(e => e.Name == "Namra");
+    foreach (var emp in nameIsNamra)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
+
+    // 10. Select data of candidates whose name contains 'mi'
+    Console.WriteLine("10. Employees whose name contains 'mi':");
+    var nameContainsMi = employees.Where(e => e.Name.Contains("mi"));
+    foreach (var emp in nameContainsMi)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
+
+    // 11. Select data of candidates whose age is either 20, 25, or 27
+    Console.WriteLine("11. Employees whose age is either 20, 25, or 27:");
+    var specificAges = employees.Where(e => e.Age == 20 || e.Age == 25 || e.Age == 27);
+    foreach (var emp in specificAges)
+        Console.WriteLine($"EmpId: {emp.EmpId}, Name: {emp.Name}, Age: {emp.Age}, Email: {emp.Email}, Gender: {emp.Gender}, Salary: {emp.Salary}");
+    Console.WriteLine("____________");
+// Employee output end (Diffrent types of where clause)
+
+
 // Student class Start
 public class Student()
 {
