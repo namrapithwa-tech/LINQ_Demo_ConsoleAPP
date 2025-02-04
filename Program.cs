@@ -247,6 +247,161 @@ Console.WriteLine("*/*/*/*/*//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*");
     permanentEmployees.ForEach(name => Console.WriteLine(name));
     Console.WriteLine("____________");
 
+    // 11. Get employees earning between 4000 and 6000.
+    var earningBetween4000And6000 = Employee_New.GetEmployees()
+        .Where(e => e.Salary >= 4000 && e.Salary <= 6000)
+        .Select(e => e.Name)
+        .ToList();
+    Console.WriteLine("Employees earning between 4000 and 6000:");
+    earningBetween4000And6000.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 12. Get employees whose names start with 'J'.
+    var namesStartingWithJ = Employee_New.GetEmployees()
+        .Where(e => e.Name.StartsWith("J"))
+        .Select(e => e.Name)
+        .ToList();
+    Console.WriteLine("Employees whose names start with 'J':");
+    namesStartingWithJ.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 13. Get all integer-type salaries (assuming list contains mixed data).
+    var integerSalaries = Employee_New.GetEmployees()
+        .Select(e => e.Salary)
+        .Where(salary => salary % 1 == 0)
+        .ToList();
+    Console.WriteLine("Integer-type Salaries:");
+    integerSalaries.ForEach(salary => Console.WriteLine(salary));
+    Console.WriteLine("____________");
+
+    // 14. Get all boolean properties.
+    var booleanProperties = Employee_New.GetEmployees()
+        .Select(e => e.IsPermanent)
+        .ToList();
+    Console.WriteLine("Boolean Properties (IsPermanent):");
+    booleanProperties.ForEach(isPermanent => Console.WriteLine(isPermanent));
+    Console.WriteLine("____________");
+
+    // 15. Get the total salary expense.
+    var totalSalaryExpense = Employee_New.GetEmployees()
+        .Sum(e => e.Salary);
+    Console.WriteLine($"Total Salary Expense: {totalSalaryExpense}");
+    Console.WriteLine("____________");
+
+
+    // 16. Find the highest salary.
+    var highestSalary = Employee_New.GetEmployees().Max(e => e.Salary);
+    Console.WriteLine($"Highest Salary: {highestSalary}");
+    Console.WriteLine("____________");
+
+    // 17. Find the lowest salary.
+    var lowestSalary = Employee_New.GetEmployees().Min(e => e.Salary);
+    Console.WriteLine($"Lowest Salary: {lowestSalary}");
+    Console.WriteLine("____________");
+
+    // 18. Find the average salary.
+    var averageSalary = Employee_New.GetEmployees().Average(e => e.Salary);
+    Console.WriteLine($"Average Salary: {averageSalary}");
+    Console.WriteLine("____________");
+
+    // 19. Group employees by department.
+    var groupedByDepartment = Employee_New.GetEmployees().GroupBy(e => e.Department).ToList();
+    Console.WriteLine("Employees grouped by department:");
+    groupedByDepartment.ForEach(group =>
+    {
+        Console.WriteLine($"Department: {group.Key}");
+        group.ToList().ForEach(e => Console.WriteLine($"  Name: {e.Name}, Salary: {e.Salary}"));
+    });
+    Console.WriteLine("____________");
+
+    // 20. Find the count of employees in each department.
+    var countByDepartment = Employee_New.GetEmployees().GroupBy(e => e.Department)
+        .Select(g => new { Department = g.Key, Count = g.Count() })
+        .ToList();
+    Console.WriteLine("Count of employees in each department:");
+    countByDepartment.ForEach(d => Console.WriteLine($"Department: {d.Department}, Count: {d.Count}"));
+    Console.WriteLine("____________");
+
+    // 21. Get the highest salary in each department.
+    var highestSalaryByDepartment = Employee_New.GetEmployees().GroupBy(e => e.Department)
+        .Select(g => new { Department = g.Key, HighestSalary = g.Max(e => e.Salary) })
+        .ToList();
+    Console.WriteLine("Highest salary in each department:");
+    highestSalaryByDepartment.ForEach(d => Console.WriteLine($"Department: {d.Department}, Highest Salary: {d.HighestSalary}"));
+    Console.WriteLine("____________");
+
+    // 22. Get employees sorted by salary in descending order.
+    var sortedBySalaryDesc = Employee_New.GetEmployees().OrderByDescending(e => e.Salary).ToList();
+    Console.WriteLine("Employees sorted by salary (descending):");
+    sortedBySalaryDesc.ForEach(e => Console.WriteLine($"Name: {e.Name}, Salary: {e.Salary}"));
+    Console.WriteLine("____________");
+
+    // 23. Get employees sorted first by department, then by salary.
+    var sortedByDeptThenSalary = Employee_New.GetEmployees()
+        .OrderBy(e => e.Department)
+        .ThenBy(e => e.Salary)
+        .ToList();
+    Console.WriteLine("Employees sorted by department, then by salary:");
+    sortedByDeptThenSalary.ForEach(e => Console.WriteLine($"Department: {e.Department}, Name: {e.Name}, Salary: {e.Salary}"));
+    Console.WriteLine("____________");
+
+    // 24. Find the employee with the highest salary.
+    var employeeWithHighestSalary = Employee_New.GetEmployees().OrderByDescending(e => e.Salary).FirstOrDefault();
+    Console.WriteLine($"Employee with the highest salary: {employeeWithHighestSalary?.Name}, Salary: {employeeWithHighestSalary?.Salary}");
+    Console.WriteLine("____________");
+
+    // 25. Find the second-highest salary.
+    var secondHighestSalary = Employee_New.GetEmployees().OrderByDescending(e => e.Salary).Skip(1).FirstOrDefault();
+    Console.WriteLine($"Second-highest salary: {secondHighestSalary?.Salary}");
+    Console.WriteLine("____________");
+
+    // 26. Get all employees with names having at least one vowel.
+    var employeesWithVowelNames = Employee_New.GetEmployees()
+        .Where(e => e.Name.IndexOfAny(new char[] { 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u' }) >= 0)
+        .Select(e => e.Name)
+        .ToList();
+    Console.WriteLine("Employees with names having at least one vowel:");
+    employeesWithVowelNames.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 27. Get department-wise average salary excluding lowest salary.
+    var avgSalaryExcludingLowestByDept = Employee_New.GetEmployees()
+        .GroupBy(e => e.Department)
+        .Select(g => new
+        {
+            Department = g.Key,
+            AvgSalaryExcludingLowest = g.OrderBy(e => e.Salary).Skip(1).Average(e => e.Salary)
+        })
+        .ToList();
+    Console.WriteLine("Department-wise average salary excluding lowest salary:");
+    avgSalaryExcludingLowestByDept.ForEach(d => Console.WriteLine($"Department: {d.Department}, Avg Salary Excluding Lowest: {d.AvgSalaryExcludingLowest}"));
+    Console.WriteLine("____________");
+
+    // 28. Get department-wise average salary excluding lowest salary.
+    // (This is a duplicate of task 27, so the same code applies)
+    Console.WriteLine("Department-wise average salary excluding lowest salary (duplicate):");
+    avgSalaryExcludingLowestByDept.ForEach(d => Console.WriteLine($"Department: {d.Department}, Avg Salary Excluding Lowest: {d.AvgSalaryExcludingLowest}"));
+    Console.WriteLine("____________");
+
+    // 29. Get employees whose names are palindromes.
+    var palindromeNames = Employee_New.GetEmployees()
+        .Where(e => e.Name.SequenceEqual(e.Name.Reverse()))
+        .Select(e => e.Name)
+        .ToList();
+    Console.WriteLine("Employees with palindrome names:");
+    palindromeNames.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 30. Get department with the highest number of employees.
+    var deptWithMostEmployees = Employee_New.GetEmployees()
+        .GroupBy(e => e.Department)
+        .OrderByDescending(g => g.Count())
+        .FirstOrDefault();
+    Console.WriteLine($"Department with the highest number of employees: {deptWithMostEmployees?.Key}, Count: {deptWithMostEmployees?.Count()}");
+    Console.WriteLine("____________");
+
+
+
 
 // Employe_New output end
 
