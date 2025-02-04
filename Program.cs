@@ -63,34 +63,34 @@
     Console.WriteLine("__________________________");
 
     // Demo 5 Where clause with multiple conditions
-    Console.WriteLine("LINQ DEMO 5 Where Clause with multiple conditions");
-    Console.WriteLine(
-        "Enter the minimum CPI: ");
-    Console.WriteLine(
-        "Enter the minimum sem: ");
-    var minCPI = Convert.ToDouble(Console.ReadLine());
-    var minSem = Convert.ToInt32(Console.ReadLine());
-    Console.WriteLine(
-        "Enter the maximum CPI: ");
-    Console.WriteLine(
-        "Enter the maximum sem: ");
-    var maxCPI = Convert.ToDouble(Console.ReadLine());
-    var maxSem = Convert.ToInt32(Console.ReadLine());
-    var studentList3 = Student.GetStudents()
-        .Where(x => x.CPI >= minCPI && x.CPI <= maxCPI && x.sem >= minSem && x.sem <= maxSem)
-        .Select(x => new
-        {
-            NameAndRno = x.Name + "-" + x.Rno,
-            Branch = x.Branch,
-            sem = x.sem,
-            CPI = x.CPI
-        });
-    foreach(var student in studentList3)
-        {
-        Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
-            $"Sem: {student.sem}, CPI: {student.CPI}");
-        }
-    Console.WriteLine("__________________________");
+    //Console.WriteLine("LINQ DEMO 5 Where Clause with multiple conditions");
+    //Console.WriteLine(
+    //    "Enter the minimum CPI: ");
+    //Console.WriteLine(
+    //    "Enter the minimum sem: ");
+    //var minCPI = Convert.ToDouble(Console.ReadLine());
+    //var minSem = Convert.ToInt32(Console.ReadLine());
+    //Console.WriteLine(
+    //    "Enter the maximum CPI: ");
+    //Console.WriteLine(
+    //    "Enter the maximum sem: ");
+    //var maxCPI = Convert.ToDouble(Console.ReadLine());
+    //var maxSem = Convert.ToInt32(Console.ReadLine());
+    //var studentList3 = Student.GetStudents()
+    //    .Where(x => x.CPI >= minCPI && x.CPI <= maxCPI && x.sem >= minSem && x.sem <= maxSem)
+    //    .Select(x => new
+    //    {
+    //        NameAndRno = x.Name + "-" + x.Rno,
+    //        Branch = x.Branch,
+    //        sem = x.sem,
+    //        CPI = x.CPI
+    //    });
+    //foreach(var student in studentList3)
+    //    {
+    //    Console.WriteLine($"Name and Roll No: {student.NameAndRno}, Branch: {student.Branch}, " +
+    //        $"Sem: {student.sem}, CPI: {student.CPI}");
+    //    }
+    //Console.WriteLine("__________________________");
 
 // Student Output end (Select Operations)
 
@@ -178,6 +178,78 @@ Console.WriteLine("*/*/*/*/*//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*");
     Console.WriteLine("____________");
 // Employee output end (Diffrent types of where clause)
 
+// Employe_New output start
+
+    // 1. Get a list of employee names.
+    var employeeNames = Employee_New.GetEmployees().Select(e => e.Name).ToList();
+    Console.WriteLine("Employee Names:");
+    employeeNames.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 2. Get names and their respective departments.
+    var namesAndDepartments = Employee_New.GetEmployees().Select(e => new { e.Name, e.Department }).ToList();
+    Console.WriteLine("Names and Departments:");
+    namesAndDepartments.ForEach(nd => Console.WriteLine($"Name: {nd.Name}, Department: {nd.Department}"));
+    Console.WriteLine("____________");
+
+    // 3. Get names of employees earning more than 5000.
+    var highEarners = Employee_New.GetEmployees().Where(e => e.Salary > 5000).Select(e => e.Name).ToList();
+    Console.WriteLine("Employees earning more than 5000:");
+    highEarners.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 4. Get the names in uppercase.
+    var upperCaseNames = Employee_New.GetEmployees().Select(e => e.Name.ToUpper()).ToList();
+    Console.WriteLine("Employee Names in Uppercase:");
+    upperCaseNames.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 5. Get employee IDs along with salaries as strings.
+    var idsAndSalaries = Employee_New.GetEmployees().Select(e => new { e.EmployeeID, SalaryString = e.Salary.ToString() }).ToList();
+    Console.WriteLine("Employee IDs and Salaries:");
+    idsAndSalaries.ForEach(idSal => Console.WriteLine($"EmployeeID: {idSal.EmployeeID}, Salary: {idSal.SalaryString}"));
+    Console.WriteLine("____________");
+
+    // 6. Get all unique skills.
+    var uniqueSkills = Employee_New.GetEmployees().SelectMany(e => e.Skills).Distinct().ToList();
+    Console.WriteLine("Unique Skills:");
+    uniqueSkills.ForEach(skill => Console.WriteLine(skill));
+    Console.WriteLine("____________");
+
+    // 7. Get employees who know "C#".
+    var knowsCSharp = Employee_New.GetEmployees().Where(e => e.Skills.Contains("C#")).Select(e => e.Name).ToList();
+    Console.WriteLine("Employees who know C#:");
+    knowsCSharp.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 8. Get department-wise skill sets.
+    var departmentSkills = Employee_New.GetEmployees()
+        .GroupBy(e => e.Department)
+        .Select(g => new { Department = g.Key, Skills = g.SelectMany(e => e.Skills).Distinct().ToList() })
+        .ToList();
+    Console.WriteLine("Department-wise Skill Sets:");
+    departmentSkills.ForEach(ds =>
+    {
+        Console.WriteLine($"Department: {ds.Department}");
+        ds.Skills.ForEach(skill => Console.WriteLine($"  Skill: {skill}"));
+    });
+    Console.WriteLine("____________");
+
+    // 9. Get employees older than 30.
+    var olderThan30 = Employee_New.GetEmployees().Where(e => e.Age > 30).Select(e => e.Name).ToList();
+    Console.WriteLine("Employees older than 30:");
+    olderThan30.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+    // 10. Get permanent employees.
+    var permanentEmployees = Employee_New.GetEmployees().Where(e => e.IsPermanent).Select(e => e.Name).ToList();
+    Console.WriteLine("Permanent Employees:");
+    permanentEmployees.ForEach(name => Console.WriteLine(name));
+    Console.WriteLine("____________");
+
+
+// Employe_New output end
+
 
 // Student class Start
 public class Student()
@@ -241,3 +313,36 @@ public class Employee
 
 // Employee class End
 
+// New Employee class Start
+
+public class Employee_New 
+{
+    public int EmployeeID { get; set; }
+    public string Name { get; set; }
+    public string Department { get; set; }
+    public double Salary { get; set; }
+    public List<string> Skills { get; set; }
+    public int Age { get; set; }
+    public bool IsPermanent { get; set; }
+
+    public static List<Employee_New> GetEmployees()
+    {
+        List<Employee_New> employeesnew = new List<Employee_New>()
+        {
+            new Employee_New { EmployeeID = 1, Name = "John", Department = "IT", Salary = 5000, Skills = new List<string> { "C#", "SQL" }, Age = 30, IsPermanent = true },
+            new Employee_New { EmployeeID = 2, Name = "Emma", Department = "HR", Salary = 4000, Skills = new List<string> { "Communication", "Management" }, Age = 28, IsPermanent = false },
+            new Employee_New { EmployeeID = 3, Name = "Michael", Department = "IT", Salary = 7000, Skills = new List<string> { "Java", "Python" }, Age = 35, IsPermanent = true },
+            new Employee_New { EmployeeID = 4, Name = "Sophia", Department = "Finance", Salary = 6000, Skills = new List<string> { "Accounting", "Excel" }, Age = 32, IsPermanent = true },
+            new Employee_New { EmployeeID = 5, Name = "Daniel", Department = "IT", Salary = 5500, Skills = new List<string> { "C#", "JavaScript" }, Age = 27, IsPermanent = false },
+            new Employee_New { EmployeeID = 6, Name = "Olivia", Department = "Marketing", Salary = 4800, Skills = new List<string> { "SEO", "Advertising" }, Age = 29, IsPermanent = true },
+            new Employee_New { EmployeeID = 7, Name = "David", Department = "IT", Salary = 6500, Skills = new List<string> { "Python", "Machine Learning" }, Age = 40, IsPermanent = true },
+            new Employee_New { EmployeeID = 8, Name = "Liam", Department = "HR", Salary = 4200, Skills = new List<string> { "Public Relations", "Recruiting" }, Age = 26, IsPermanent = false },
+            new Employee_New { EmployeeID = 9, Name = "Isabella", Department = "Finance", Salary = 5800, Skills = new List<string> { "Budgeting", "Taxation" }, Age = 31, IsPermanent = true },
+            new Employee_New { EmployeeID = 10, Name = "Ethan", Department = "Marketing", Salary = 5200, Skills = new List<string> { "Social Media", "Copywriting" }, Age = 33, IsPermanent = false }
+
+        };
+        return employeesnew;
+    }
+}
+
+// New Employee class End
